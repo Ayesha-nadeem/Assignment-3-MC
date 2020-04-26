@@ -30,6 +30,7 @@ import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.squareup.picasso.Picasso;
 
 import java.io.BufferedInputStream;
@@ -41,6 +42,7 @@ import java.io.OutputStream;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.ArrayList;
+
 
 public class RVAdapter extends RecyclerView.Adapter<RVAdapter.ViewHolder> {
     Context context;
@@ -114,8 +116,10 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.ViewHolder> {
         holder.tv_level.setText(level.get(position));
         holder.tv_info.setText(info.get(position));
 //        Picasso.get().load("https://github.com/revolunet/PythonBooks/blob/master/img/BMH.png").into(holder.iv_icon);
-        Picasso.with(context).load("https://github.com/revolunet/PythonBooks/blob/master/img/Learning-IPython-for-Interactive-Computing-and-Data-Visualization-Second-Edition.png").into(holder.iv_icon);
-
+        Picasso.with(context).load("https://raw.githubusercontent.com/revolunet/PythonBooks/master/"+imgid.get(position)).into(holder.iv_icon);
+//        Glide.with(context)
+//                .load("http://via.placeholder.com/300.png")
+//                .into(holder.iv_icon);
         //new DownloadImageTask(holder.iv_icon).execute(imgid.get(position));
        // ImageView imgView = new ImageView(this);
 //        String img=imgid.get(position).substring(2);
@@ -124,6 +128,7 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.ViewHolder> {
         //holder.iv_icon.setImageResource(R.drawable.a);
         //holder.iv_icon.setImageResource(imgid.get(position));
        // holder.iv_icon.setImageBitmap(imgid.get(position));
+       // new DownloadImageTask(holder.iv_icon).execute("https://images.app.goo.gl/1ENbszJxgrs8QZpb8");
 
         Log.e("title at pos-"+position,imgid.get(position));
         //Log.e("title at pos-"+position,imgid.get(position));
@@ -181,28 +186,28 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.ViewHolder> {
             btn_book=itemView.findViewById(R.id.button);
         }
     }
-//    private class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
-//        ImageView bmImage;
-//        public DownloadImageTask(ImageView bmImage) {
-//            this.bmImage = bmImage;
-//        }
-//
-//        protected Bitmap doInBackground(String... urls) {
-//            String urldisplay = urls[0];
-//            Bitmap bmp = null;
-//            try {
-//                InputStream in = new java.net.URL(urldisplay).openStream();
-//                bmp = BitmapFactory.decodeStream(in);
-//            } catch (Exception e) {
-//                Log.e("Error", e.getMessage());
-//                e.printStackTrace();
-//            }
-//            return bmp;
-//        }
-//        protected void onPostExecute(Bitmap result) {
-//            bmImage.setImageBitmap(result);
-//        }
-//    }
+    private class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
+        ImageView bmImage;
+        public DownloadImageTask(ImageView bmImage) {
+            this.bmImage = bmImage;
+        }
+
+        protected Bitmap doInBackground(String... urls) {
+            String urldisplay = urls[0];
+            Bitmap bmp = null;
+            try {
+                InputStream in = new java.net.URL(urldisplay).openStream();
+                bmp = BitmapFactory.decodeStream(in);
+            } catch (Exception e) {
+                Log.e("Error", e.getMessage());
+                e.printStackTrace();
+            }
+            return bmp;
+        }
+        protected void onPostExecute(Bitmap result) {
+            bmImage.setImageBitmap(result);
+        }
+    }
 //    public class DownloadService extends IntentService {
 //        public static final int UPDATE_PROGRESS = 8344;
 //

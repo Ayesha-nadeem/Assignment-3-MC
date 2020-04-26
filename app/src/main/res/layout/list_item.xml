@@ -5,16 +5,17 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="#DFDADA">
     <androidx.appcompat.widget.LinearLayoutCompat
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:layout_margin="10dp"
-        android:background="#5646">
+        android:layout_margin="6dp"
+        android:background="@drawable/square">
         <ImageView
                android:id="@+id/imageView"
-               android:layout_width="70dp"
+               android:layout_width="100dp"
                android:layout_height="match_parent"
                android:padding="5dp"
                app:layout_constraintStart_toStartOf="parent"
@@ -25,43 +26,64 @@
         <androidx.appcompat.widget.LinearLayoutCompat
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:paddingLeft="5dp">
 
                 <TextView
                     android:id="@+id/title"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:padding="5dp"
+
                     android:text="title!"
-                    android:textSize="10dp"
+                    android:textStyle="bold|italic"
+                    android:textColor="#000000"
+                    android:textSize="17dp"
                      />
 
                 <TextView
                     android:id="@+id/level"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:minHeight="?android:attr/listPreferredItemHeightSmall"
-                    android:padding="5dp"
-                    android:text="Subtitle"
-                    android:textSize="6pt"
+
+                    android:padding="4dp"
+                    android:text="level"
+
+                    android:textSize="15dp"
 
                    />
             <TextView
                 android:id="@+id/info"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="38dp"
                 android:minHeight="?android:attr/listPreferredItemHeightSmall"
-                android:padding="5dp"
-                android:text="Subtitle"
-                android:textSize="6pt"
+                android:paddingLeft="5dp"
+                android:paddingEnd="5dp"
+                android:text="info"
+
+                android:textSize="15dp"
 
                 />
-            <Button
-                android:id="@+id/button"
-                android:layout_width="match_parent"
+            <RelativeLayout
+                android:id="@+id/relativeLayout1"
+                android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:text="button"
-                android:background="@color/colorAccent"/>
+                >
+                <Button
+                    android:id="@+id/button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="next"
+                    android:layout_marginEnd="30dp"
+                    android:layout_marginBottom="15dp"
+                    android:layout_marginTop="15dp"
+                    android:textColor="#ffffff"
+                    android:padding="5dp"
+                    android:layout_alignParentRight="true"
+                    android:background="#FFA722"/>
+
+            </RelativeLayout>
+
 
 
         </androidx.appcompat.widget.LinearLayoutCompat>
