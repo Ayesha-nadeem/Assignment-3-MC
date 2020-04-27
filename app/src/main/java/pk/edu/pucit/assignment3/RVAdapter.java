@@ -55,9 +55,6 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.ViewHolder> {
     private  String bookName="";
 
     ProgressDialog mProgressDialog;
-    //private Integer[] imgid;
-   //ArrayList<String>  imgid
-    //Integer[] imgid
 
     public RVAdapter(Context context, ArrayList<String> maintitle, ArrayList<String>  level,ArrayList<String>  info,ArrayList<String>  imgid,ArrayList<String> bookUrl ) {
 
@@ -82,13 +79,11 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.ViewHolder> {
 
             this.info.add(new String(i));
         }
-        //this.maintitle=maintitle.clone();
-        //this.maintitle = maintitle;
+
         this.imgid = new ArrayList<String>(imgid.size());
         for(String i : imgid){
             this.imgid.add(new String(i));
         }
-        //this.imgid=imgid;
         this.level= new ArrayList<String>(level.size());
         for(String i : level){
            this.level.add(new String(i));
@@ -97,8 +92,6 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.ViewHolder> {
         for(String i : bookUrl){
             this.bookUrl.add(new String(i));
         }
-//        ImageView one = (ImageView)findViewById(R.id.imageView);
-//        one.setImageBitmap(bitmap);
     }
 
 
@@ -115,20 +108,7 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.ViewHolder> {
         holder.tv_title.setText(maintitle.get(position));
         holder.tv_level.setText(level.get(position));
         holder.tv_info.setText(info.get(position));
-//        Picasso.get().load("https://github.com/revolunet/PythonBooks/blob/master/img/BMH.png").into(holder.iv_icon);
         Picasso.with(context).load("https://raw.githubusercontent.com/revolunet/PythonBooks/master/"+imgid.get(position)).into(holder.iv_icon);
-//        Glide.with(context)
-//                .load("http://via.placeholder.com/300.png")
-//                .into(holder.iv_icon);
-        //new DownloadImageTask(holder.iv_icon).execute(imgid.get(position));
-       // ImageView imgView = new ImageView(this);
-//        String img=imgid.get(position).substring(2);
-//        InputStream is = getClass().getResourceAsStream("/res/drawable" + img);
-//        holder.iv_icon.setImageDrawable(Drawable.createFromStream(is, ""));
-        //holder.iv_icon.setImageResource(R.drawable.a);
-        //holder.iv_icon.setImageResource(imgid.get(position));
-       // holder.iv_icon.setImageBitmap(imgid.get(position));
-       // new DownloadImageTask(holder.iv_icon).execute("https://images.app.goo.gl/1ENbszJxgrs8QZpb8");
 
         Log.e("title at pos-"+position,imgid.get(position));
         //Log.e("title at pos-"+position,imgid.get(position));
@@ -186,100 +166,17 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.ViewHolder> {
             btn_book=itemView.findViewById(R.id.button);
         }
     }
-    private class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
-        ImageView bmImage;
-        public DownloadImageTask(ImageView bmImage) {
-            this.bmImage = bmImage;
-        }
-
-        protected Bitmap doInBackground(String... urls) {
-            String urldisplay = urls[0];
-            Bitmap bmp = null;
-            try {
-                InputStream in = new java.net.URL(urldisplay).openStream();
-                bmp = BitmapFactory.decodeStream(in);
-            } catch (Exception e) {
-                Log.e("Error", e.getMessage());
-                e.printStackTrace();
-            }
-            return bmp;
-        }
-        protected void onPostExecute(Bitmap result) {
-            bmImage.setImageBitmap(result);
-        }
-    }
-//    public class DownloadService extends IntentService {
-//        public static final int UPDATE_PROGRESS = 8344;
-//
-//        public DownloadService() {
-//            super("DownloadService");
-//        }
-//        @Override
-//        protected void onHandleIntent(Intent intent) {
-//
-//            String urlToDownload = intent.getStringExtra("url");
-//            ResultReceiver receiver = (ResultReceiver) intent.getParcelableExtra("receiver");
-//            try {
-//
-//                //create url and connect
-//                URL url = new URL(urlToDownload);
-//                URLConnection connection = url.openConnection();
-//                connection.connect();
-//
-//                // this will be useful so that you can show a typical 0-100% progress bar
-//                int fileLength = connection.getContentLength();
-//
-//                // download the file
-//                InputStream input = new BufferedInputStream(connection.getInputStream());
-//
-//                String path = "/sdcard/BarcodeScanner-debug.apk" ;
-//                OutputStream output = new FileOutputStream(path);
-//
-//                byte data[] = new byte[1024];
-//                long total = 0;
-//                int count;
-//                while ((count = input.read(data)) != -1) {
-//                    total += count;
-//
-//                    // publishing the progress....
-//                    Bundle resultData = new Bundle();
-//                    resultData.putInt("progress" ,(int) (total * 100 / fileLength));
-//                    receiver.send(UPDATE_PROGRESS, resultData);
-//                    output.write(data, 0, count);
-//                }
-//
-//                // close streams
-//                output.flush();
-//                output.close();
-//                input.close();
-//
-//            } catch (IOException e) {
-//                e.printStackTrace();
-//            }
-//
-//            Bundle resultData = new Bundle();
-//            resultData.putInt("progress" ,100);
-//
-//            receiver.send(UPDATE_PROGRESS, resultData);
-//        }
-//    }
-
 
     //download class
 
     class DownloadFileFromURL extends AsyncTask<String, Integer, String> {
 
-        /**
-         * Before starting background thread Show Progress Bar Dialog
-         * */
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
             mProgressDialog.show();
         }
-        /**
-         * Downloading file in background thread
-         */
+
         @Override
         protected String doInBackground(String... f_url) {
             int count;
@@ -288,19 +185,16 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.ViewHolder> {
                 URLConnection conection = url.openConnection();
                 conection.connect();
 
-                // this will be useful so that you can show a tipical 0-100%
-                // progress bar
+
                 int lenghtOfFile = conection.getContentLength();
 
-                // download the file
+
                 InputStream input = new BufferedInputStream(url.openStream());
 
                 final int PERMISSION_REQUEST_CODE = 12345;
                 ActivityCompat.requestPermissions((Activity) context, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE}, PERMISSION_REQUEST_CODE);
 
-                //Log.i("Filesdir", getFilesDir().getAbsolutePath());
-                //File file = new File(getFilesDir().getAbsolutePath() + "/first_file.txt");
-                // Output stream
+
                 OutputStream output = new FileOutputStream(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS) + "/"+bookName+".pdf");
 
                 byte data[] = new byte[1024];
@@ -309,18 +203,13 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.ViewHolder> {
 
                 while ((count = input.read(data)) != -1) {
                     total += count;
-                    // publishing the progress....
-                    // After this onProgressUpdate will be called
                     publishProgress((int) ((total * 100) / lenghtOfFile));
 
-                    // writing data to file
                     output.write(data, 0, count);
                 }
 
-                // flushing output
                 output.flush();
 
-                // closing streams
                 output.close();
                 input.close();
 
@@ -333,7 +222,7 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.ViewHolder> {
         @Override
         protected void onProgressUpdate(Integer... progress) {
             super.onProgressUpdate(progress);
-            // if we get here, length is known, now set indeterminate to false
+
             mProgressDialog.setIndeterminate(false);
             mProgressDialog.setMax(100);
             mProgressDialog.setProgress(progress[0]);
