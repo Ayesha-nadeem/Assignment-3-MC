@@ -41,6 +41,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.URL;
 import java.net.URLConnection;
+import java.nio.file.Files;
 import java.util.ArrayList;
 
 
@@ -53,6 +54,7 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.ViewHolder> {
     private ArrayList<String> imgid;
     private ArrayList<String> bookUrl;
     private  String bookName="";
+    private String asub="";
 
     ProgressDialog mProgressDialog;
 
@@ -113,7 +115,7 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.ViewHolder> {
         Log.e("title at pos-"+position,imgid.get(position));
         //Log.e("title at pos-"+position,imgid.get(position));
         String a=bookUrl.get(position);
-        String asub=a.substring(a.length() - 3, a.length());
+         asub=a.substring(a.length() - 3, a.length());
         if(asub.equals("pdf") || asub.equals("zip") )
         {
             holder.btn_book.setText("DOWNLOAD");
@@ -193,9 +195,13 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.ViewHolder> {
 
                 final int PERMISSION_REQUEST_CODE = 12345;
                 ActivityCompat.requestPermissions((Activity) context, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE}, PERMISSION_REQUEST_CODE);
-
-
-                OutputStream output = new FileOutputStream(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS) + "/"+bookName+".pdf");
+//                Log.i("filesdir",Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS)+"");
+//
+//
+               //OutputStream output = new FileOutputStream(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS) + "/"+bookName+"."+asub);
+                File file= new File(context.getFilesDir().getAbsolutePath() + "/"+bookName+"."+asub);
+//                Log.e("Files",context.getFilesDir().getAbsolutePath());
+                OutputStream output = new FileOutputStream(file);
 
                 byte data[] = new byte[1024];
 
